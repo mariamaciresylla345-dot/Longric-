@@ -1,0 +1,870 @@
+ <!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Longrich — Sagesse ancestrale, science moderne</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,450;0,9..144,600;0,9..144,700;1,9..144,450&family=Sora:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --jade-deep:#123529;
+    --jade:#1B4332;
+    --jade-soft:#E6EDE7;
+    --gold:#C9A227;
+    --gold-light:#E4C766;
+    --ivory:#F7F3EA;
+    --ink:#14110F;
+    --ink-soft:#3E3A34;
+    --line: rgba(20,17,15,0.12);
+    --radius: 2px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--ivory);
+    color:var(--ink);
+    font-family:'Sora', sans-serif;
+    font-weight:400;
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,h4{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    letter-spacing:-0.01em;
+    color:var(--ink);
+  }
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.72rem;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    color:var(--gold);
+    display:flex;
+    align-items:center;
+    gap:0.6rem;
+  }
+  .eyebrow::before{
+    content:"";
+    width:22px; height:1px;
+    background:var(--gold);
+    display:inline-block;
+  }
+  a{color:inherit; text-decoration:none;}
+  img{max-width:100%; display:block;}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 32px;}
+  section{position:relative;}
+
+  /* reveal animation */
+  .reveal{opacity:0; transform:translateY(24px); transition:opacity 0.8s ease, transform 0.8s ease;}
+  .reveal.is-visible{opacity:1; transform:translateY(0);}
+  @media (prefers-reduced-motion: reduce){
+    .reveal{opacity:1; transform:none; transition:none;}
+    html{scroll-behavior:auto;}
+  }
+
+  /* ---------- HEADER ---------- */
+  header{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    padding:22px 0;
+    transition:background 0.4s ease, padding 0.4s ease, box-shadow 0.4s ease;
+  }
+  header.scrolled{
+    background:rgba(247,243,234,0.92);
+    backdrop-filter:blur(10px);
+    padding:14px 0;
+    box-shadow:0 1px 0 var(--line);
+  }
+  header .wrap{display:flex; align-items:center; justify-content:space-between;}
+  .brand{
+    font-family:'Fraunces', serif;
+    font-size:1.4rem;
+    font-weight:700;
+    letter-spacing:0.02em;
+    display:flex; align-items:center; gap:10px;
+    color:var(--ivory);
+    transition:color 0.4s ease;
+  }
+  header.scrolled .brand{color:var(--jade-deep);}
+  .brand .seal-mini{
+    width:28px; height:28px; border-radius:50%;
+    border:1.5px solid var(--gold);
+    display:flex; align-items:center; justify-content:center;
+    font-size:0.7rem; color:var(--gold); font-family:'Fraunces',serif;
+  }
+  nav ul{display:flex; gap:36px; list-style:none;}
+  nav a{
+    font-size:0.86rem; font-weight:500; color:var(--ivory);
+    transition:color 0.4s ease; position:relative;
+  }
+  header.scrolled nav a{color:var(--ink-soft);}
+  nav a:hover{color:var(--gold);}
+  .nav-cta{
+    border:1px solid var(--gold);
+    padding:9px 20px;
+    font-size:0.8rem;
+    color:var(--ivory) !important;
+    transition:all 0.3s ease;
+  }
+  header.scrolled .nav-cta{color:var(--jade-deep) !important; border-color:var(--jade);}
+  .nav-cta:hover{background:var(--gold); color:var(--ink) !important;}
+  .menu-toggle{display:none; flex-direction:column; gap:5px; background:none; border:none; cursor:pointer; z-index:110;}
+  .menu-toggle span{width:24px; height:2px; background:var(--ivory); transition:0.3s;}
+  header.scrolled .menu-toggle span{background:var(--jade-deep);}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    min-height:100vh;
+    background:
+      radial-gradient(ellipse at 75% 20%, rgba(201,162,39,0.16), transparent 55%),
+      linear-gradient(180deg, var(--jade-deep) 0%, var(--jade) 100%);
+    display:flex; align-items:center;
+    padding-top:120px; padding-bottom:80px;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero::after{
+    content:"";
+    position:absolute; inset:0;
+    background-image:
+      repeating-linear-gradient(115deg, rgba(255,255,255,0.025) 0px, rgba(255,255,255,0.025) 1px, transparent 1px, transparent 90px);
+    pointer-events:none;
+  }
+  .hero .wrap{
+    display:grid; grid-template-columns:1.15fr 0.85fr; gap:60px; align-items:center;
+    position:relative; z-index:2;
+  }
+  .hero-eyebrow{color:var(--gold-light);}
+  .hero-eyebrow::before{background:var(--gold-light);}
+  .hero h1{
+    color:var(--ivory);
+    font-size:clamp(2.6rem, 5vw, 4.1rem);
+    line-height:1.04;
+    margin:22px 0 26px;
+  }
+  .hero h1 em{
+    font-style:italic; color:var(--gold-light);
+    font-weight:450;
+  }
+  .hero p.lead{
+    color:rgba(247,243,234,0.78);
+    font-size:1.08rem;
+    max-width:480px;
+    margin-bottom:36px;
+  }
+  .hero-actions{display:flex; gap:16px; flex-wrap:wrap;}
+  .btn{
+    display:inline-flex; align-items:center; gap:10px;
+    padding:15px 30px;
+    font-size:0.88rem; font-weight:600;
+    border-radius:var(--radius);
+    transition:all 0.3s ease;
+    cursor:pointer; border:1px solid transparent;
+  }
+  .btn-gold{background:var(--gold); color:var(--ink);}
+  .btn-gold:hover{background:var(--gold-light); transform:translateY(-2px);}
+  .btn-ghost{border-color:rgba(247,243,234,0.4); color:var(--ivory);}
+  .btn-ghost:hover{border-color:var(--gold-light); color:var(--gold-light);}
+
+  /* The seal — signature element */
+  .seal-hero{
+    position:relative; width:100%; aspect-ratio:1; max-width:400px; margin:0 auto;
+  }
+  .seal-ring{
+    position:absolute; inset:0; border-radius:50%;
+    border:1px solid rgba(201,162,39,0.4);
+    animation:spin 60s linear infinite;
+  }
+  .seal-ring.inner{inset:34px; border-color:rgba(201,162,39,0.65); animation-duration:44s; animation-direction:reverse;}
+  .seal-ring.dashed{inset:14px; border-style:dashed; border-color:rgba(201,162,39,0.3); animation-duration:80s;}
+  @keyframes spin{from{transform:rotate(0deg);} to{transform:rotate(360deg);}}
+  .seal-core{
+    position:absolute; inset:70px;
+    border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, #2A5A46, #123529 70%);
+    border:1px solid var(--gold);
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:0 0 60px rgba(201,162,39,0.15), inset 0 0 30px rgba(0,0,0,0.3);
+  }
+  .seal-core .mark{
+    font-family:'Fraunces', serif;
+    font-size:3.4rem;
+    color:var(--gold-light);
+    font-weight:600;
+  }
+  .stat-chip{
+    position:absolute;
+    background:rgba(20,17,15,0.55);
+    border:1px solid rgba(201,162,39,0.35);
+    backdrop-filter:blur(6px);
+    padding:12px 18px;
+    border-radius:var(--radius);
+  }
+  .stat-chip .num{font-family:'Fraunces',serif; color:var(--gold-light); font-size:1.3rem; font-weight:600; display:block;}
+  .stat-chip .lbl{font-family:'IBM Plex Mono',monospace; font-size:0.62rem; letter-spacing:0.08em; color:rgba(247,243,234,0.7); text-transform:uppercase;}
+  .stat-chip.c1{top:6%; left:-6%;}
+  .stat-chip.c2{bottom:8%; right:-8%;}
+
+  /* ---------- MARQUEE ---------- */
+  .marquee-bar{
+    background:var(--ink);
+    padding:16px 0;
+    overflow:hidden;
+    white-space:nowrap;
+  }
+  .marquee-track{
+    display:inline-flex; gap:60px;
+    animation:marquee 32s linear infinite;
+  }
+  @keyframes marquee{from{transform:translateX(0);} to{transform:translateX(-50%);}}
+  .marquee-track span{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.78rem; letter-spacing:0.1em; text-transform:uppercase;
+    color:var(--gold-light);
+    display:inline-flex; align-items:center; gap:16px;
+  }
+  .marquee-track span::after{content:"◆"; color:rgba(201,162,39,0.4); font-size:0.6rem; margin-left:16px;}
+
+  /* ---------- SECTION HEADERS ---------- */
+  .section-pad{padding:120px 0;}
+  .section-head{max-width:640px; margin-bottom:64px;}
+  .section-head h2{font-size:clamp(2rem, 3.4vw, 2.8rem); margin-top:16px; line-height:1.12;}
+  .section-head p{margin-top:18px; color:var(--ink-soft); font-size:1.02rem;}
+
+  /* ---------- HISTOIRE ---------- */
+  .histoire{background:var(--jade-soft);}
+  .histoire .wrap{display:grid; grid-template-columns:0.9fr 1.1fr; gap:70px; align-items:center;}
+  .histoire-visual{
+    aspect-ratio:4/5;
+    background:linear-gradient(155deg, var(--jade) 0%, var(--jade-deep) 100%);
+    position:relative; border-radius:var(--radius);
+    display:flex; align-items:center; justify-content:center;
+    overflow:hidden;
+  }
+  .histoire-visual .rings{position:absolute; inset:20px; border:1px solid rgba(201,162,39,0.3); border-radius:2px;}
+  .histoire-visual .year{
+    font-family:'Fraunces',serif; color:var(--gold-light); font-size:5rem; font-weight:700;
+    text-align:center;
+  }
+  .histoire-visual .year small{display:block; font-family:'IBM Plex Mono',monospace; font-size:0.7rem; color:rgba(247,243,234,0.7); letter-spacing:0.15em; margin-top:8px; font-weight:400;}
+  .timeline{list-style:none; border-left:1px solid var(--line); margin-top:20px;}
+  .timeline li{padding:0 0 30px 28px; position:relative;}
+  .timeline li::before{
+    content:""; position:absolute; left:-5px; top:4px;
+    width:9px; height:9px; border-radius:50%;
+    background:var(--ivory); border:2px solid var(--gold);
+  }
+  .timeline li:last-child{padding-bottom:0;}
+  .timeline .t-year{font-family:'IBM Plex Mono',monospace; font-size:0.75rem; color:var(--gold); letter-spacing:0.08em;}
+  .timeline h4{font-size:1.08rem; margin:4px 0 6px; font-weight:600;}
+  .timeline p{color:var(--ink-soft); font-size:0.94rem;}
+
+  /* ---------- PRODUITS ---------- */
+  .produits-grid{
+    display:grid; grid-template-columns:repeat(4, 1fr); gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+  }
+  .prod-card{
+    background:var(--ivory);
+    padding:36px 28px;
+    transition:background 0.35s ease;
+    position:relative;
+  }
+  .prod-card:hover{background:#fff;}
+  .prod-card .badge{
+    position:absolute; top:24px; right:24px;
+    width:34px; height:34px; border-radius:50%;
+    border:1px solid var(--gold);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Fraunces',serif; font-size:0.7rem; color:var(--gold);
+  }
+  .prod-card .pnum{
+    font-family:'IBM Plex Mono',monospace; font-size:0.7rem; color:var(--gold); letter-spacing:0.1em;
+  }
+  .prod-card h3{font-size:1.22rem; margin:14px 0 10px; line-height:1.2;}
+  .prod-card p{font-size:0.9rem; color:var(--ink-soft);}
+  @media(max-width:900px){.produits-grid{grid-template-columns:repeat(2,1fr);}}
+  @media(max-width:560px){.produits-grid{grid-template-columns:1fr;}}
+
+  /* ---------- ARGUMENTS ---------- */
+  .arguments{background:var(--ink); color:var(--ivory);}
+  .arguments .section-head h2{color:var(--ivory);}
+  .arguments .section-head p{color:rgba(247,243,234,0.65);}
+  .arg-list{display:grid; grid-template-columns:repeat(2, 1fr); gap:1px; background:rgba(247,243,234,0.12);}
+  .arg-item{background:var(--ink); padding:38px 36px;}
+  .arg-item .arg-top{display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:18px;}
+  .arg-item .arg-mark{
+    font-family:'Fraunces',serif; font-size:1.6rem; color:var(--gold-light);
+    width:44px; height:44px; border:1px solid rgba(201,162,39,0.4); border-radius:50%;
+    display:flex; align-items:center; justify-content:center; flex-shrink:0;
+  }
+  .arg-item h3{color:var(--ivory); font-size:1.18rem; margin-bottom:10px;}
+  .arg-item p{color:rgba(247,243,234,0.62); font-size:0.93rem;}
+  @media(max-width:760px){.arg-list{grid-template-columns:1fr;}}
+
+  /* ---------- OPPORTUNITÉ ---------- */
+  .opportunite .wrap{display:grid; grid-template-columns:1fr 1fr; gap:70px; align-items:start;}
+  .opp-steps{counter-reset:opp;}
+  .opp-step{
+    display:grid; grid-template-columns:auto 1fr; gap:22px;
+    padding:26px 0; border-bottom:1px solid var(--line);
+  }
+  .opp-step:first-child{padding-top:0;}
+  .opp-step .opp-index{
+    counter-increment:opp;
+    font-family:'Fraunces',serif; font-size:1.6rem; color:var(--gold); font-weight:600;
+  }
+  .opp-step .opp-index::before{content: counter(opp, decimal-leading-zero);}
+  .opp-step h4{font-size:1.08rem; margin-bottom:6px;}
+  .opp-step p{color:var(--ink-soft); font-size:0.93rem;}
+  .opp-panel{
+    background:var(--jade-deep); color:var(--ivory);
+    padding:44px 40px; border-radius:var(--radius);
+    position:sticky; top:110px;
+  }
+  .opp-panel h3{color:var(--gold-light); font-size:1.5rem; margin-bottom:18px;}
+  .opp-panel ul{list-style:none; margin-bottom:28px;}
+  .opp-panel li{padding:10px 0; border-bottom:1px solid rgba(247,243,234,0.14); font-size:0.94rem; color:rgba(247,243,234,0.85); display:flex; gap:12px;}
+  .opp-panel li::before{content:"✦"; color:var(--gold);}
+  .opp-panel .btn{width:100%; justify-content:center;}
+
+  /* ---------- TÉMOIGNAGES ---------- */
+  .temoignages{background:var(--jade-soft);}
+  .temo-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:28px;}
+  .temo-card{
+    background:var(--ivory); padding:34px 30px; border-radius:var(--radius);
+    border:1px solid var(--line);
+  }
+  .temo-card .stars{color:var(--gold); font-size:0.85rem; letter-spacing:2px; margin-bottom:16px;}
+  .temo-card p{font-size:0.95rem; color:var(--ink-soft); margin-bottom:22px; font-style:italic;}
+  .temo-who{display:flex; align-items:center; gap:12px;}
+  .temo-avatar{
+    width:38px; height:38px; border-radius:50%;
+    background:var(--jade); color:var(--gold-light);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Fraunces',serif; font-weight:600; font-size:0.9rem;
+  }
+  .temo-who .name{font-weight:600; font-size:0.9rem;}
+  .temo-who .role{font-size:0.78rem; color:var(--ink-soft);}
+  @media(max-width:860px){.temo-grid{grid-template-columns:1fr;}}
+
+  /* ---------- FAQ ---------- */
+  .faq-list{max-width:800px;}
+  .faq-item{border-bottom:1px solid var(--line);}
+  .faq-q{
+    width:100%; text-align:left; background:none; border:none; cursor:pointer;
+    padding:26px 0; display:flex; justify-content:space-between; align-items:center; gap:20px;
+    font-family:'Fraunces',serif; font-size:1.12rem; color:var(--ink);
+  }
+  .faq-q .plus{
+    font-family:'IBM Plex Mono',monospace; font-size:1.2rem; color:var(--gold);
+    transition:transform 0.3s ease; flex-shrink:0;
+  }
+  .faq-item.open .faq-q .plus{transform:rotate(45deg);}
+  .faq-a{
+    max-height:0; overflow:hidden; transition:max-height 0.4s ease;
+  }
+  .faq-item.open .faq-a{max-height:220px;}
+  .faq-a p{padding-bottom:26px; color:var(--ink-soft); font-size:0.95rem; max-width:640px;}
+
+  /* ---------- CTA / CONTACT ---------- */
+  .cta-section{
+    background:linear-gradient(160deg, var(--jade-deep), var(--jade));
+    color:var(--ivory);
+    position:relative; overflow:hidden;
+  }
+  .cta-section .wrap{display:grid; grid-template-columns:1fr 1fr; gap:70px; align-items:center;}
+  .cta-section h2{color:var(--ivory); font-size:clamp(2rem,3.4vw,2.7rem); margin:16px 0 20px;}
+  .cta-section p{color:rgba(247,243,234,0.72); max-width:440px;}
+  .form-card{
+    background:var(--ivory); color:var(--ink);
+    padding:40px; border-radius:var(--radius);
+  }
+  .form-row{margin-bottom:18px;}
+  .form-row label{display:block; font-size:0.78rem; font-family:'IBM Plex Mono',monospace; letter-spacing:0.06em; text-transform:uppercase; color:var(--ink-soft); margin-bottom:8px;}
+  .form-row input, .form-row select, .form-row textarea{
+    width:100%; padding:13px 14px; border:1px solid var(--line); background:#fff;
+    font-family:'Sora',sans-serif; font-size:0.92rem; border-radius:var(--radius);
+  }
+  .form-row input:focus, .form-row select:focus, .form-row textarea:focus{outline:2px solid var(--gold); outline-offset:1px;}
+  .form-row textarea{resize:vertical; min-height:80px;}
+  .form-card .btn{width:100%; justify-content:center; margin-top:6px;}
+
+  /* ---------- FOOTER ---------- */
+  footer{background:var(--ink); color:rgba(247,243,234,0.6); padding:70px 0 30px;}
+  .footer-grid{display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:50px; padding-bottom:50px; border-bottom:1px solid rgba(247,243,234,0.12);}
+  .footer-grid h5{font-family:'IBM Plex Mono',monospace; font-size:0.72rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--gold-light); margin-bottom:18px;}
+  .footer-grid ul{list-style:none;}
+  .footer-grid li{margin-bottom:10px; font-size:0.88rem;}
+  .footer-grid li a:hover{color:var(--gold-light);}
+  .footer-brand{font-family:'Fraunces',serif; font-size:1.3rem; color:var(--ivory); margin-bottom:14px;}
+  .footer-bottom{display:flex; justify-content:space-between; padding-top:26px; font-size:0.78rem; flex-wrap:wrap; gap:10px;}
+  @media(max-width:760px){.footer-grid{grid-template-columns:1fr 1fr;}}
+
+  /* ---------- RESPONSIVE ---------- */
+  @media(max-width:900px){
+    nav ul{display:none;}
+    .menu-toggle{display:flex;}
+    .hero .wrap{grid-template-columns:1fr;}
+    .seal-hero{margin-top:50px;}
+    .histoire .wrap{grid-template-columns:1fr;}
+    .opportunite .wrap{grid-template-columns:1fr;}
+    .opp-panel{position:relative; top:0;}
+    .produits-grid{grid-template-columns:repeat(2,1fr);}
+    .cta-section .wrap{grid-template-columns:1fr;}
+    .section-pad{padding:80px 0;}
+  }
+</style>
+</head>
+<body>
+
+<header id="siteHeader">
+  <div class="wrap">
+    <a href="#top" class="brand"><span class="seal-mini">L</span>LONGRICH</a>
+    <nav id="navMenu">
+      <ul>
+        <li><a href="#histoire">Histoire</a></li>
+        <li><a href="#produits">Produits</a></li>
+        <li><a href="#arguments">Pourquoi nous</a></li>
+        <li><a href="#opportunite">Opportunité</a></li>
+        <li><a href="#temoignages">Témoignages</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#contact" class="nav-cta">Nous contacter</a></li>
+      </ul>
+    </nav>
+    <button class="menu-toggle" id="menuToggle" aria-label="Ouvrir le menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<section class="hero" id="top">
+  <div class="wrap">
+    <div>
+      <p class="eyebrow hero-eyebrow">Depuis 1986 · Bio-technologie chinoise</p>
+      <h1>La sagesse des <em>plantes</em>, mise au service de votre bien-être quotidien.</h1>
+      <p class="lead">Longrich réunit la pharmacopée traditionnelle chinoise et la recherche scientifique moderne pour créer des produits de santé, de beauté et d'hygiène du quotidien, distribués dans le monde entier.</p>
+      <div class="hero-actions">
+        <a href="#produits" class="btn btn-gold">Découvrir les produits</a>
+        <a href="#opportunite" class="btn btn-ghost">Devenir distributeur</a>
+      </div>
+    </div>
+    <div class="seal-hero">
+      <div class="seal-ring"></div>
+      <div class="seal-ring inner"></div>
+      <div class="seal-ring dashed"></div>
+      <div class="seal-core"><span class="mark">龍</span></div>
+      <div class="stat-chip c1"><span class="num">40+</span><span class="lbl">Pays présents</span></div>
+      <div class="stat-chip c2"><span class="num">1000+</span><span class="lbl">Références produits</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="marquee-bar">
+  <div class="marquee-track">
+    <span>Bio-technologie</span><span>Herboristerie chinoise</span><span>Contrôle qualité rigoureux</span><span>Réseau international</span><span>Produits du quotidien</span><span>Formation continue</span>
+    <span>Bio-technologie</span><span>Herboristerie chinoise</span><span>Contrôle qualité rigoureux</span><span>Réseau international</span><span>Produits du quotidien</span><span>Formation continue</span>
+  </div>
+</div>
+
+<section class="histoire section-pad" id="histoire">
+  <div class="wrap">
+    <div class="histoire-visual reveal">
+      <div class="rings"></div>
+      <div class="year">1986<small>Fondation en Chine</small></div>
+    </div>
+    <div>
+      <p class="eyebrow">Notre histoire</p>
+      <h2 class="reveal">Une entreprise née d'une conviction simple</h2>
+      <p style="color:var(--ink-soft); margin:18px 0 34px; max-width:520px;" class="reveal">Longrich Bio-Technology est fondée en Chine avec l'idée que la nature contient déjà la plupart des réponses à nos besoins de santé et de beauté — à condition de savoir les extraire, les doser et les vérifier avec rigueur.</p>
+      <ul class="timeline">
+        <li class="reveal">
+          <span class="t-year">Fondation</span>
+          <h4>Naissance du groupe</h4>
+          <p>Un laboratoire spécialisé en ingrédients naturels pose les bases de ce qui deviendra un groupe multi-catégories.</p>
+        </li>
+        <li class="reveal">
+          <span class="t-year">Expansion</span>
+          <h4>Diversification des gammes</h4>
+          <p>Soins du corps, hygiène bucco-dentaire, compléments, entretien de la maison : la gamme s'élargit à mesure que la recherche progresse.</p>
+        </li>
+        <li class="reveal">
+          <span class="t-year">International</span>
+          <h4>Ouverture au monde</h4>
+          <p>Le réseau de distribution s'étend hors de Chine, porté par un modèle de distributeurs indépendants formés aux produits.</p>
+        </li>
+        <li class="reveal">
+          <span class="t-year">Aujourd'hui</span>
+          <h4>Une marque installée</h4>
+          <p>Longrich poursuit sa croissance autour de trois piliers : qualité des ingrédients, formation du réseau, et proximité avec les clients.</p>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="section-pad" id="produits" style="background:#fff;">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">Gamme de produits</p>
+      <h2>Des produits pensés pour chaque moment du quotidien</h2>
+      <p>Huit familles de produits couvrent la santé, la beauté, l'hygiène et l'entretien de la maison — toutes développées autour d'ingrédients d'origine naturelle.</p>
+    </div>
+  </div>
+  <div class="wrap" style="padding:0;">
+    <div class="produits-grid">
+
+      <div class="prod-card reveal">
+        <span class="pnum">01</span><span class="badge">✓</span>
+        <h3>Dentifrice biologique</h3>
+        <p>Formulé à base d'extraits de plantes, pensé pour un usage quotidien doux pour les gencives.</p>
+      </div>
+
+      <div class="prod-card reveal">
+        <span class="pnum">02</span><span class="badge">✓</span>
+        <h3>Calcium & compléments</h3>
+        <p>Une gamme de compléments alimentaires pensée pour accompagner les besoins nutritionnels du quotidien.</p>
+      </div>
+
+      <div class="prod-card reveal">
+        <span class="pnum">03</span><span class="badge">✓</span>
+        <h3>Patchs de détente</h3>
+        <p>Des patchs à base de plantes, à appliquer le soir, inspirés des pratiques traditionnelles chinoises.</p>
+      </div>
+
+      <div class="prod-card reveal">
+        <span class="pnum">04</span><span class="badge">✓</span>
+        <h3>Thé & café bien-être</h3>
+        <p>Des infusions et cafés enrichis en extraits naturels, à intégrer facilement à une routine saine.</p>
+      </div>
+
+      <div class="prod-card reveal">
+        <span class="pnum">05</span><span class="badge">✓</span>
+        <h3>Vin de cérémonie</h3>
+        <p>Un vin traditionnel infusé aux plantes, hérité du savoir-faire des herboristeries chinoises.</p>
+      </div>
+
+      <div class="prod-card reveal">
+        <span class="pnum">06</span><span class="badge">✓</span>
+        <h3>Gamme cosmétique</h3>
+        <p>Soins du visage et du corps formulés avec des actifs naturels, pour toutes les routines beauté.</p>
+      </div>
+
+      <div class="prod-card reveal">
+        <span class="pnum">07</span><span class="badge">✓</span>
+        <h3>Hygiène féminine bio</h3>
+        <p>Des protections hygiéniques conçues avec des matériaux naturels et respirants.</p>
+      </div>
+
+      <div class="prod-card reveal">
+        <span class="pnum">08</span><span class="badge">✓</span>
+        <h3>Entretien de la maison</h3>
+        <p>Produits ménagers et purificateurs d'eau conçus pour limiter les résidus chimiques du quotidien.</p>
+      </div>
+
+    </div>
+  </div>
+  <p style="text-align:center; margin-top:40px; font-size:0.85rem; color:var(--ink-soft);" class="reveal">Chaque produit est vendu avec sa fiche d'utilisation. Demandez le catalogue complet auprès de votre distributeur.</p>
+</section>
+
+<section class="arguments section-pad" id="arguments">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">Pourquoi choisir Longrich</p>
+      <h2>Quatre raisons qui convainquent nos clients</h2>
+      <p>Ce ne sont pas des promesses en l'air : ce sont les critères que nous appliquons à chaque produit avant qu'il ne porte notre nom.</p>
+    </div>
+  </div>
+  <div class="wrap" style="padding:0;">
+    <div class="arg-list">
+      <div class="arg-item reveal">
+        <div class="arg-top"><span class="arg-mark">◈</span></div>
+        <h3>Des ingrédients d'origine naturelle</h3>
+        <p>Nos formules s'appuient en priorité sur des extraits végétaux, sélectionnés selon les usages traditionnels de la pharmacopée chinoise et retravaillés en laboratoire.</p>
+      </div>
+      <div class="arg-item reveal">
+        <div class="arg-top"><span class="arg-mark">◈</span></div>
+        <h3>Un contrôle qualité à chaque étape</h3>
+        <p>De la matière première au produit fini, chaque lot passe par des contrôles internes avant d'être mis en circulation dans le réseau.</p>
+      </div>
+      <div class="arg-item reveal">
+        <div class="arg-top"><span class="arg-mark">◈</span></div>
+        <h3>Des produits du quotidien, pas des gadgets</h3>
+        <p>Dentifrice, thé, produits d'entretien : la gamme couvre des besoins réels et récurrents, pas des achats ponctuels.</p>
+      </div>
+      <div class="arg-item reveal">
+        <div class="arg-top"><span class="arg-mark">◈</span></div>
+        <h3>Un accompagnement humain</h3>
+        <p>Chaque client est suivi par un distributeur formé, joignable pour des conseils d'usage et un réassort simplifié.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="opportunite section-pad" id="opportunite" style="background:#fff;">
+  <div class="wrap">
+    <div>
+      <p class="eyebrow">Opportunité d'affaires</p>
+      <h2 class="reveal" style="font-size:clamp(2rem,3.4vw,2.6rem); margin:16px 0 30px;">Construire un revenu complémentaire avec Longrich</h2>
+      <div class="opp-steps">
+        <div class="opp-step reveal">
+          <span class="opp-index"></span>
+          <div>
+            <h4>Vous rejoignez le réseau</h4>
+            <p>Inscription auprès d'un distributeur déjà actif, qui devient votre parrain et premier point de contact.</p>
+          </div>
+        </div>
+        <div class="opp-step reveal">
+          <span class="opp-index"></span>
+          <div>
+            <h4>Vous êtes formé aux produits</h4>
+            <p>Sessions de formation sur les gammes, les argumentaires et les bonnes pratiques de vente et de suivi client.</p>
+          </div>
+        </div>
+        <div class="opp-step reveal">
+          <span class="opp-index"></span>
+          <div>
+            <h4>Vous vendez et vous fidélisez</h4>
+            <p>Constitution d'un portefeuille de clients réguliers, grâce à des produits consommables qui génèrent du réachat.</p>
+          </div>
+        </div>
+        <div class="opp-step reveal">
+          <span class="opp-index"></span>
+          <div>
+            <h4>Vous développez votre équipe</h4>
+            <p>En parrainant à votre tour, vous construisez un réseau et accédez à des paliers de commissions supplémentaires.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="opp-panel reveal">
+      <h3>Ce que le réseau vous apporte</h3>
+      <ul>
+        <li>Une formation initiale et continue, sans prérequis</li>
+        <li>Des produits consommables, donc un réachat naturel</li>
+        <li>Un plan de rémunération à plusieurs paliers</li>
+        <li>Un accompagnement par un parrain expérimenté</li>
+        <li>Une activité modulable, en parallèle ou à temps plein</li>
+      </ul>
+      <a href="#contact" class="btn btn-gold">Être recontacté</a>
+      <p style="font-size:0.76rem; color:rgba(247,243,234,0.55); margin-top:14px;">Les revenus dépendent de l'investissement personnel et de la taille du réseau développé ; aucun revenu n'est garanti.</p>
+    </div>
+  </div>
+</section>
+
+<section class="temoignages section-pad" id="temoignages">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">Témoignages</p>
+      <h2>Ce qu'en disent nos clients et distributeurs</h2>
+    </div>
+    <div class="temo-grid">
+      <div class="temo-card reveal">
+        <div class="stars">★★★★★</div>
+        <p>« J'ai commencé avec le dentifrice et le thé bien-être, aujourd'hui c'est toute ma famille qui utilise la gamme au quotidien. »</p>
+        <div class="temo-who">
+          <div class="temo-avatar">A</div>
+          <div><div class="name">Awa</div><div class="role">Cliente depuis 2 ans</div></div>
+        </div>
+      </div>
+      <div class="temo-card reveal">
+        <div class="stars">★★★★★</div>
+        <p>« Ce qui m'a convaincue, c'est le suivi. Ma distributrice répond toujours quand j'ai une question sur un produit. »</p>
+        <div class="temo-who">
+          <div class="temo-avatar">M</div>
+          <div><div class="name">Mariame</div><div class="role">Cliente régulière</div></div>
+        </div>
+      </div>
+      <div class="temo-card reveal">
+        <div class="stars">★★★★★</div>
+        <p>« J'ai rejoint le réseau il y a huit mois pour un revenu complémentaire. La formation au démarrage a vraiment fait la différence. »</p>
+        <div class="temo-who">
+          <div class="temo-avatar">S</div>
+          <div><div class="name">Sékou</div><div class="role">Distributeur indépendant</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-pad" id="faq" style="background:#fff;">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">Questions fréquentes</p>
+      <h2>Tout ce qu'on nous demande avant de commencer</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item reveal">
+        <button class="faq-q">Comment savoir quel produit choisir en premier ? <span class="plus">+</span></button>
+        <div class="faq-a"><p>Votre distributeur établit avec vous un mini bilan de vos besoins (hygiène, beauté, bien-être) et vous recommande deux ou trois produits d'entrée, à tester avant d'élargir la routine.</p></div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q">Faut-il un investissement de départ pour devenir distributeur ? <span class="plus">+</span></button>
+        <div class="faq-a"><p>L'inscription se fait via un kit de démarrage dont le contenu et le prix varient selon les pays. Votre parrain vous communique le détail exact avant toute inscription.</p></div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q">Les produits sont-ils adaptés à tous les âges ? <span class="plus">+</span></button>
+        <div class="faq-a"><p>La majorité des produits d'usage courant conviennent à un large public. Pour les compléments alimentaires, une consultation avec un professionnel de santé est recommandée en cas de grossesse, de traitement en cours ou de pathologie particulière.</p></div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q">Comment fonctionne la livraison ? <span class="plus">+</span></button>
+        <div class="faq-a"><p>La commande passe par votre distributeur ou par un point de retrait local ; les délais varient selon votre zone géographique.</p></div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q">Puis-je arrêter l'activité de distributeur à tout moment ? <span class="plus">+</span></button>
+        <div class="faq-a"><p>Oui, l'activité n'est pas contractuellement contraignante : vous restez libre de mettre en pause ou d'arrêter selon vos disponibilités.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section section-pad" id="contact">
+  <div class="wrap">
+    <div>
+      <p class="eyebrow hero-eyebrow">Passons à l'étape suivante</p>
+      <h2>Parlons de vos besoins ou de votre projet</h2>
+      <p>Que vous cherchiez un produit précis ou que vous envisagiez de rejoindre le réseau, laissez-nous vos coordonnées : un distributeur formé vous recontacte sous 48h.</p>
+    </div>
+    <form class="form-card reveal" id="contactForm">
+      <div class="form-row">
+        <label for="nom">Nom complet</label>
+        <input type="text" id="nom" placeholder="Votre nom" required>
+      </div>
+      <div class="form-row">
+        <label for="tel">Téléphone / WhatsApp</label>
+        <input type="tel" id="tel" placeholder="+224 00 00 00 00" required>
+      </div>
+      <div class="form-row">
+        <label for="motif">Vous souhaitez</label>
+        <select id="motif">
+          <option>Commander des produits</option>
+          <option>Devenir distributeur</option>
+          <option>Obtenir le catalogue complet</option>
+          <option>Autre demande</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <label for="msg">Message (optionnel)</label>
+        <textarea id="msg" placeholder="Précisez votre demande..."></textarea>
+      </div>
+      <button type="submit" class="btn btn-gold">Envoyer ma demande</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">LONGRICH</div>
+        <p style="font-size:0.86rem; max-width:280px;">Bio-technologie, santé et beauté au service du quotidien, depuis 1986.</p>
+      </div>
+      <div>
+        <h5>Navigation</h5>
+        <ul>
+          <li><a href="#histoire">Histoire</a></li>
+          <li><a href="#produits">Produits</a></li>
+          <li><a href="#opportunite">Opportunité</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Gammes</h5>
+        <ul>
+          <li><a href="#produits">Santé</a></li>
+          <li><a href="#produits">Beauté</a></li>
+          <li><a href="#produits">Hygiène</a></li>
+          <li><a href="#produits">Maison</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Contact</h5>
+        <ul>
+          <li><a href="#contact">Formulaire de contact</a></li>
+          <li><a href="#contact">WhatsApp distributeur</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 — Site vitrine indépendant présentant les produits et l'opportunité Longrich.</span>
+      <span>Ceci est une maquette de site à personnaliser avec vos vraies coordonnées.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // header scroll state
+  const header = document.getElementById('siteHeader');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // mobile menu
+  const toggle = document.getElementById('menuToggle');
+  const navMenu = document.getElementById('navMenu');
+  toggle.addEventListener('click', () => {
+    const open = navMenu.style.display === 'block';
+    navMenu.style.display = open ? '' : 'block';
+    if(!open){
+      navMenu.style.position='fixed';
+      navMenu.style.top='0'; navMenu.style.left='0'; navMenu.style.right='0'; navMenu.style.bottom='0';
+      navMenu.style.background='var(--jade-deep)';
+      navMenu.style.display='flex'; navMenu.style.alignItems='center'; navMenu.style.justifyContent='center';
+      navMenu.querySelector('ul').style.flexDirection='column';
+      navMenu.querySelectorAll('a').forEach(a=>{a.style.color='#F7F3EA'; a.style.fontSize='1.2rem';});
+    } else {
+      navMenu.removeAttribute('style');
+    }
+  });
+  navMenu.querySelectorAll('a').forEach(a=>a.addEventListener('click', ()=>{
+    navMenu.removeAttribute('style');
+  }));
+
+  // reveal on scroll
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ e.target.classList.add('is-visible'); io.unobserve(e.target); }
+    });
+  }, {threshold:0.15});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  // FAQ accordion
+  document.querySelectorAll('.faq-item').forEach(item=>{
+    item.querySelector('.faq-q').addEventListener('click', ()=>{
+      const wasOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open'));
+      if(!wasOpen) item.classList.add('open');
+    });
+  });
+</script>
+<script>
+document.getElementById("contactForm").addEventListener("submit", function(e){
+
+    e.preventDefault();
+
+    let nom = document.getElementById("nom").value;
+    let tel = document.getElementById("tel").value;
+    let motif = document.getElementById("motif").value;
+    let msg = document.getElementById("msg").value;
+
+    let texte =
+`🌿 *Nouvelle demande Longrich*
+
+👤 Nom : ${nom}
+
+📞 Téléphone : ${tel}
+
+🛒 Demande : ${motif}
+
+💬 Message : ${msg}`;
+
+    let url = "https://wa.me/224622724294?text=" + encodeURIComponent(texte);
+
+    window.open(url, "_blank");
+
+});
+</script>
+
+</body>
+</html>
